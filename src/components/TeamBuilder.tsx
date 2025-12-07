@@ -155,8 +155,6 @@ const TeamBuilder: React.FC = () => {
                         lockedCount={lockedTeam.length}
                         onLock={handleLockAutoChamp}
                     />
-                    <h3 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>Available Champions</h3>
-                    <ChampionList onAdd={handleAddChampion} team={lockedTeam} />
                 </div>
 
                 <div>
@@ -164,6 +162,11 @@ const TeamBuilder: React.FC = () => {
                         <TraitTracker team={fullTeam} extraTraits={emblems} />
                     </div>
                 </div>
+            </div>
+
+            <div className="champion-section">
+                <h3 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>Available Champions</h3>
+                <ChampionList onAdd={handleAddChampion} team={lockedTeam} />
             </div>
         </div>
     );
