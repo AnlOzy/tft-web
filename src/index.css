@@ -78,6 +78,14 @@ button {
 }
 
 /* Layout Classes */
+.team-builder {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  /* Add side padding for centering look */
+}
+
 /* Layout Classes - FLEX WRAP APPROACH */
 .builder-layout {
   display: flex;

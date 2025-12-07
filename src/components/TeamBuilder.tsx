@@ -45,11 +45,28 @@ const TeamBuilder: React.FC = () => {
         if (champToLock) setLockedTeam([...lockedTeam, champToLock]);
     };
 
+    const [hasOptimized, setHasOptimized] = useState(false); // New state
+
+    React.useEffect(() => {
+        setFullTeam([...lockedTeam]);
+        // Reset optimization state when team changes manually (optional? user said "after autofill", 
+        // implies standard should come back if I reset? Let's keep it optimized until manual change?)
+        // Actually, if I change lockedTeam, I am no longer 'autofilled' in a pure sense.
+        // But user might want to keep the view. I'll reset if lockedTeam changes length?
+        // Let's just set it true on optimize and false if I clear?
+        // Simpler: Only Optimize button sets it true. 
+        // Adding a champ manually doesn't necessarily un-optimize view preferences?
+        // Allow it to persist for now, unless user clears.
+    }, [lockedTeam]);
+
+    // ... (handleAddChampion etc)
+
     const handleOptimize = async () => {
         setIsOptimizing(true);
         setTimeout(() => {
             const optimized = findBestTeamCompletion(lockedTeam, teamSize, emblems, optimizationStrategy);
             setFullTeam(optimized);
+            setHasOptimized(true); // Trigger view change
             setIsOptimizing(false);
         }, 100);
     };
@@ -154,12 +171,13 @@ const TeamBuilder: React.FC = () => {
                         onResize={setTeamSize}
                         lockedCount={lockedTeam.length}
                         onLock={handleLockAutoChamp}
+                        isOptimized={hasOptimized}
                     />
                 </div>
 
                 <div>
                     <div className="trait-sidebar-container">
-                        <TraitTracker team={fullTeam} extraTraits={emblems} />
+                        <TraitTracker team={fullTeam} extraTraits={emblems} isOptimized={hasOptimized} />
                     </div>
                 </div>
             </div>

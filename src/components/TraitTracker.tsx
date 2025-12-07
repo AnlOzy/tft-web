@@ -5,14 +5,15 @@ import { calculateActiveTraits } from '../utils';
 interface TraitTrackerProps {
     team: Champion[];
     extraTraits?: string[];
+    isOptimized?: boolean; // New prop
 }
 
-const TraitTracker: React.FC<TraitTrackerProps> = ({ team, extraTraits = [] }) => {
+const TraitTracker: React.FC<TraitTrackerProps> = ({ team, extraTraits = [], isOptimized = false }) => {
     const activeTraits = useMemo(() => {
         return calculateActiveTraits(team, extraTraits)
-            .filter(t => t.count > 1 || t.activeTierIdx >= 0) // Hide inactive single-unit traits
+            .filter(t => isOptimized ? (t.count > 1 || t.activeTierIdx >= 0) : t.count > 0) // Strict if optimized, loose if not
             .sort((a, b) => b.count - a.count);
-    }, [team, extraTraits]);
+    }, [team, extraTraits, isOptimized]);
 
     return (
         <div className="trait-tracker" style={{

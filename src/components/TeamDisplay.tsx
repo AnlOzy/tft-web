@@ -6,11 +6,12 @@ interface TeamDisplayProps {
     teamSize: number;
     onRemove: (index: number) => void;
     onResize: (size: number) => void;
-    lockedCount: number; // New: how many are user-selected
-    onLock: (index: number) => void; // New: click auto champ to lock it
+    lockedCount: number;
+    onLock: (index: number) => void;
+    isOptimized?: boolean; // New prop
 }
 
-const TeamDisplay: React.FC<TeamDisplayProps> = ({ team, teamSize, onRemove, onResize, lockedCount, onLock }) => {
+const TeamDisplay: React.FC<TeamDisplayProps> = ({ team, teamSize, onRemove, onResize, lockedCount, onLock, isOptimized = false }) => {
     const slots = Array(teamSize).fill(null);
 
     const getCostBorder = (cost: number) => {
@@ -116,20 +117,22 @@ const TeamDisplay: React.FC<TeamDisplayProps> = ({ team, teamSize, onRemove, onR
 
                             <div style={{ fontWeight: 'bold', color: champ.cost === 7 ? 'black' : 'white', marginBottom: '0.2rem' }}>{champ.name}</div>
 
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px', justifyContent: 'center', marginBottom: '0.2rem' }}>
-                                {champ.traits.map(t => (
-                                    <span key={t} style={{
-                                        fontSize: '0.6rem',
-                                        padding: '1px 4px',
-                                        background: champ.cost === 7 ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)',
-                                        borderRadius: '3px',
-                                        color: champ.cost === 7 ? '#333' : '#ddd',
-                                        whiteSpace: 'nowrap'
-                                    }}>
-                                        {t}
-                                    </span>
-                                ))}
-                            </div>
+                            {isOptimized && (
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px', justifyContent: 'center', marginBottom: '0.2rem' }}>
+                                    {champ.traits.map(t => (
+                                        <span key={t} style={{
+                                            fontSize: '0.6rem',
+                                            padding: '1px 4px',
+                                            background: champ.cost === 7 ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)',
+                                            borderRadius: '3px',
+                                            color: champ.cost === 7 ? '#333' : '#ddd',
+                                            whiteSpace: 'nowrap'
+                                        }}>
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
 
                             <div style={{ fontSize: '0.8rem', opacity: 0.8, color: champ.cost === 7 ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.8)' }}>${champ.cost}</div>
                             {champ.is_locked && (
