@@ -89,11 +89,23 @@ button {
   top: 2rem;
 }
 
+/* Component Classes */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
+  min-height: 150px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   #root {
-    padding: 1rem;
-    /* Add padding to root so content doesn't touch edges */
+    padding: 0.5rem;
+    /* Reduce root padding to give more width to content */
   }
 
   .team-builder {
@@ -103,7 +115,14 @@ button {
   .builder-layout {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+  }
+
+  /* Make team grid tighter on mobile to fit 3-4 items */
+  .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    padding: 0.8rem;
+    gap: 0.5rem;
   }
 
   .trait-sidebar-container {

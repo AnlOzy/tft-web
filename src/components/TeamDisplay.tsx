@@ -61,16 +61,7 @@ const TeamDisplay: React.FC<TeamDisplayProps> = ({ team, teamSize, onRemove, onR
                 </div>
             </div>
 
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
-                gap: '1rem',
-                background: 'rgba(255,255,255,0.03)',
-                padding: '1.5rem',
-                borderRadius: '12px',
-                border: '1px dashed var(--border-color)',
-                minHeight: '150px'
-            }}>
+            <div className="team-grid">
                 {slots.map((_, idx) => {
                     const champ = team[idx];
                     const isLocked = idx < lockedCount; // First N are manual/locked
