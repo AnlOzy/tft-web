@@ -69,22 +69,7 @@ const TeamBuilder: React.FC = () => {
 
     return (
         <div className="team-builder" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
-                <div style={{
-                    fontSize: '2.5rem',
-                    fontWeight: '900',
-                    background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textTransform: 'uppercase',
-                    letterSpacing: '-2px'
-                }}>
-                    TW
-                </div>
-                <div style={{ fontSize: '1rem', color: 'var(--text-secondary)', fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase' }}>
-                    Team Builder
-                </div>
-            </div>
+
 
             <div className="builder-layout">
                 <div>

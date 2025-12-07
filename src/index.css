@@ -78,10 +78,29 @@ button {
 }
 
 /* Layout Classes */
+/* Layout Classes - FLEX WRAP APPROACH */
 .builder-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(280px, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  /* Key to responsive behavior without breakpoints */
   gap: 2rem;
+  align-items: start;
+  /* Prevent sidebar stretching */
+}
+
+/* Main Content Area (Team + List) */
+.builder-layout>div:first-child {
+  flex: 999 1 500px;
+  /* Grow freely, shrink to 500px, then wrap */
+  min-width: 0;
+  /* Prevent overflow */
+}
+
+/* Sidebar Area (Traits) */
+.builder-layout>div:last-child {
+  flex: 1 1 300px;
+  /* Grow 1x, shrink to 300px base */
+  min-width: 0;
 }
 
 .trait-sidebar-container {
@@ -92,58 +111,39 @@ button {
 /* Component Classes */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 1rem;
+  /* Auto-fit is better than auto-fill for responsiveness */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.8rem;
   background: rgba(255, 255, 255, 0.03);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
   border: 1px dashed var(--border-color);
   min-height: 150px;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
+/* Mobile Adjustments (Global Safety) */
+@media (max-width: 600px) {
   #root {
     padding: 0.5rem;
-    /* Reduce root padding to give more width to content */
   }
 
   .team-builder {
-    gap: 1.5rem !important;
-    max-width: 100%;
-    overflow: hidden;
+    gap: 1rem !important;
   }
 
-  .builder-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  /* Make team grid tighter on mobile to fit 3-4 items */
-  .team-grid {
-    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-    padding: 0.8rem;
-    gap: 0.5rem;
-  }
-
+  /* Unstick sidebar on small screens */
   .trait-sidebar-container {
     position: static;
   }
 
-  /* Reduce font sizes slightly for mobile */
-  h1 {
-    font-size: 1.5rem;
+  /* Even smaller grid items for phones */
+  .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.5rem;
   }
 
-  h2 {
-    font-size: 1.25rem;
-  }
-
-  /* Ensure grids don't blow out */
+  /* Champion List small cards */
   .champion-list>div:last-child {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)) !important;
-    /* Smaller cards on mobile */
-    gap: 0.5rem !important;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)) !important;
   }
 }
