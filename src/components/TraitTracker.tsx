@@ -10,7 +10,7 @@ interface TraitTrackerProps {
 const TraitTracker: React.FC<TraitTrackerProps> = ({ team, extraTraits = [] }) => {
     const activeTraits = useMemo(() => {
         return calculateActiveTraits(team, extraTraits)
-            .filter(t => t.count > 0) // Hide unused traits
+            .filter(t => t.count > 1 || t.activeTierIdx >= 0) // Hide inactive single-unit traits
             .sort((a, b) => b.count - a.count);
     }, [team, extraTraits]);
 
