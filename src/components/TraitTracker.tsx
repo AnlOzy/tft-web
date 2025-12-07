@@ -8,7 +8,11 @@ interface TraitTrackerProps {
 }
 
 const TraitTracker: React.FC<TraitTrackerProps> = ({ team, extraTraits = [] }) => {
-    const activeTraits = useMemo(() => calculateActiveTraits(team, extraTraits), [team, extraTraits]);
+    const activeTraits = useMemo(() => {
+        return calculateActiveTraits(team, extraTraits)
+            .filter(t => t.count > 0) // Hide unused traits
+            .sort((a, b) => b.count - a.count);
+    }, [team, extraTraits]);
 
     return (
         <div className="trait-tracker" style={{
